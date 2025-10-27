@@ -1,26 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="ArtifactsWorkspaceSettings">
-    <artifacts-to-build>
-      <artifact name="SnakeGame:jar" />
-    </artifacts-to-build>
-  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ba6996a4-9bb8-45b2-a720-4b998f0417a8" name="Changes" comment="" />
+    <list default="true" id="ba6996a4-9bb8-45b2-a720-4b998f0417a8" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SnakeGame.iml" beforeDir="false" afterPath="$PROJECT_DIR$/SnakeGame.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SnakeGame/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SnakeGame/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SnakeGame/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SnakeGame/SnakeGame.iml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SnakeGame/SnakeGame.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SnakeGame/SnakeGame/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SnakeGame/SnakeGame/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SnakeGame/SnakeGame/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SnakeGame/SnakeGame/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SnakeGame/SnakeGame/SnakeGame.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SnakeGame/SnakeGame/resources/sprites/foodDark.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SnakeGame/SnakeGame/resources/sprites/foodLight.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SnakeGame/src/BoardSize.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SnakeGame/src/Food.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SnakeGame/src/GameBoard.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SnakeGame/src/GameBoardPanel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SnakeGame/src/MenuPanel$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SnakeGame/src/MenuPanel$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SnakeGame/src/MenuPanel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SnakeGame/src/Snake$Direction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SnakeGame/src/Snake.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SnakeGame/src/SnakeGame$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SnakeGame/src/SnakeGame.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SnakeGame/src/SnakeSpeed.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SnakeGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SnakeGame.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Class" />
-      </list>
-    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -37,23 +52,21 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;Application.SnakeGame.executor&quot;: &quot;Run&quot;,
-    &quot;JAR Application.SnakeGame.jar.executor&quot;: &quot;Run&quot;,
     &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_directory_selection&quot;: &quot;C:/Users/lmcau619/Documents/GitHub/SnakeGame/src/src&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/lmcau619/Downloads/SnakeGame-main (1)/SnakeGame-main - Copy&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/lmcau619/Documents/GitHub/SnakeGame&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -61,17 +74,6 @@
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="" />
     </key>
-  </component>
-  <component name="RunManager">
-    <configuration name="SnakeGame.jar" type="JarApplication" temporary="true">
-      <option name="JAR_PATH" value="$PROJECT_DIR$/out/artifacts/SnakeGame_jar/SnakeGame.jar" />
-      <method v="2" />
-    </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="JAR Application.SnakeGame.jar" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>

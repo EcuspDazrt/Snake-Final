@@ -5,8 +5,8 @@ import java.awt.event.KeyEvent;
 
 public class SnakeGame extends JFrame {
         private Snake.Direction currentDirection = Snake.Direction.RIGHT;
+        private boolean inputGiven = false;
         private Snake.Direction nextDirection = Snake.Direction.NONE;
-        private Snake.Direction futureDirection = Snake.Direction.NONE;
         private Snake snake;
         private GameBoard board;
         private Food food;
@@ -14,31 +14,24 @@ public class SnakeGame extends JFrame {
         private CardLayout cardLayout;
         private JPanel mainPanel;
         private MenuPanel menuPanel;
-        private WinPanel winPanel;
         public static SnakeSpeed snakeSpeed;
         public static BoardSize boardSize;
         private boolean isPaused = false;
-        public long lastUpdateTime;
-        public long tickDuration;
 
         public SnakeGame() {
-
             cardLayout = new CardLayout();
             mainPanel = new JPanel(cardLayout);
             snakeSpeed = new SnakeSpeed(50);
-            boardSize = new BoardSize(15);
-            SnakeColor.set(new Color(71, 117, 235));
+            boardSize = new BoardSize(20);
 
             menuPanel = new MenuPanel(this);
-            winPanel = new WinPanel(this);
             mainPanel.add(menuPanel, "Menu");
-            mainPanel.add(winPanel, "Win");
 
             snake = new Snake(boardSize.get() / 2, boardSize.get() / 2);
             board = new GameBoard(boardSize.get());
             food = new Food(board);
 
-            boardPanel = new GameBoardPanel(board, this, snake);
+            boardPanel = new GameBoardPanel(board);
             mainPanel.add(boardPanel, "Game");
 
             this.add(mainPanel);
@@ -49,54 +42,69 @@ public class SnakeGame extends JFrame {
             this.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                Snake.Direction newDir = currentDirection;
+                if (inputGiven) {
                     switch (e.getKeyCode()) {
                         case KeyEvent.VK_UP:
-                            newDir = Snake.Direction.UP;
+                            nextDirection = Snake.Direction.UP;
                             break;
                         case KeyEvent.VK_DOWN:
-                            newDir = Snake.Direction.DOWN;
+                            nextDirection = Snake.Direction.DOWN;
                             break;
                         case KeyEvent.VK_LEFT:
-                            newDir = Snake.Direction.LEFT;
+                            nextDirection = Snake.Direction.LEFT;
                             break;
                         case KeyEvent.VK_RIGHT:
-                            newDir = Snake.Direction.RIGHT;
+                            nextDirection = Snake.Direction.RIGHT;
                             break;
                         case KeyEvent.VK_ESCAPE:
                             isPaused = !isPaused;
-                            return;
+                            break;
                         case KeyEvent.VK_ENTER:
                             if (menuPanel.isVisible()) {startGame();}
-                            return;
+                            break;
                         case KeyEvent.VK_R:
                             timer.stop();
                             showMenu();
-                            return;
+                            break;
+                    }
+                } else {
+                    switch (e.getKeyCode()) {
+                        case KeyEvent.VK_UP:
+                            if (currentDirection != Snake.Direction.DOWN) currentDirection = Snake.Direction.UP;
+                            break;
+                        case KeyEvent.VK_DOWN:
+                            if (currentDirection != Snake.Direction.UP) currentDirection = Snake.Direction.DOWN;
+                            break;
+                        case KeyEvent.VK_LEFT:
+                            if (currentDirection != Snake.Direction.RIGHT) currentDirection = Snake.Direction.LEFT;
+                            break;
+                        case KeyEvent.VK_RIGHT:
+                            if (currentDirection != Snake.Direction.LEFT) currentDirection = Snake.Direction.RIGHT;
+                            break;
+                        case KeyEvent.VK_ESCAPE:
+                            isPaused = !isPaused;
+                            break;
+                        case KeyEvent.VK_ENTER:
+                            if (menuPanel.isVisible()) {startGame();}
+                            break;
+                        case KeyEvent.VK_R:
+                            timer.stop();
+                            showMenu();
+                            break;
+                    }
+                    inputGiven = true;
                 }
 
-                    if (newDir == Snake.Direction.NONE) return;
-
-                    if (newDir == currentDirection.opposite() && nextDirection == Snake.Direction.NONE) return;
-
-                    if (nextDirection == Snake.Direction.NONE) {
-                        nextDirection = newDir;
-                    } else {
-                        if (newDir != nextDirection.opposite()) {
-                            futureDirection = newDir;
-                        }
-                    }
             }
         });
 
             this.setFocusable(true);
             this.requestFocusInWindow();
 
-}
-//        iconImg = new ImageIcon(getClass().getResource("/sprites/snake_logo.png")).getImage();
-//        MenuPanel.setIconImage(iconImg);
+        }
+
         // do frame, panel, timer
-Timer timer;
+        private Timer timer;
         private boolean ateFood = false;
 
         private void gameLoop() {
@@ -105,50 +113,28 @@ Timer timer;
                 timer = null;
             }
 
-            tickDuration = (snakeSpeed.get() + 50) * 1_000_000L;
-            lastUpdateTime = System.nanoTime();
+            timer = new Timer(snakeSpeed.get() + 50, e -> {
+                if (!inputGiven && nextDirection != Snake.Direction.NONE) {
+                    currentDirection = nextDirection;
+                    nextDirection = Snake.Direction.NONE;
+                    System.out.println(currentDirection);
+                }
 
-            final double logicStep = (snakeSpeed.get() + 50) / 1000.0;
-            final double[] accumulator = { 0.0 };
-            final long[] previous = { System.nanoTime()};
+                if (!isPaused) {
+                    snake.move(currentDirection, ateFood, snake.getBody(), board);
+                }
+                inputGiven = false;
 
-            timer = new Timer(16, e -> {
-                long now = System.nanoTime();
-                double delta = (now - previous[0]) / 1_000_000_000.0;
-                previous[0] = now;
-                accumulator[0] += delta;
+                if (snake.checkCollision(board.cols, board.rows)) {
+                    timer.stop();
+                    showMenu();
+                }
 
-                while (accumulator[0] >= logicStep) {
-                    lastUpdateTime = System.nanoTime();
-
-                    if (nextDirection != Snake.Direction.NONE) {
-                        currentDirection = nextDirection;
-                        nextDirection = Snake.Direction.NONE;
-                    }
-
-                    if (futureDirection != Snake.Direction.NONE) {
-                        nextDirection = futureDirection;
-                    }
-                    futureDirection = Snake.Direction.NONE;
-
-                    if (!isPaused) {
-                        snake.move(currentDirection, ateFood, board);
-                    }
-
-                    if (snake.checkCollision(board.cols, board.rows)) {
-                        timer.stop();
-                        showMenu();
-                    }
-
-                    boolean justAte = snake.getBody().getFirst().equals(food.getPosition());
-
-                    if (justAte) {
-                        ateFood = true;
-                        SwingUtilities.invokeLater(() -> {food.updateFood(board);});
-                    } else {
-                        ateFood = false;
-                    }
-                    accumulator[0] -= logicStep;
+                if (snake.getBody().getFirst().equals(food.getPosition())) {
+                    ateFood = true;
+                    food.updateFood(board);
+                } else {
+                    ateFood = false;
                 }
                 boardPanel.repaint();
             });
@@ -159,17 +145,11 @@ Timer timer;
         cardLayout.show(mainPanel, "Menu");
     }
 
-    public void showWin() {
-        cardLayout.show(mainPanel, "Win");
-    }
-
-
     public void startGame() {
         if (timer != null) {
             timer.stop();
             timer = null;
         }
-
         board = new GameBoard(boardSize.get());
         snake = new Snake(5, 5);
         food = new Food(board);
@@ -177,8 +157,7 @@ Timer timer;
         currentDirection = Snake.Direction.RIGHT;
 
 
-        boardPanel.setSnake(snake);
-        boardPanel.setBoard(board);
+        boardPanel.board = board;
 
         cardLayout.show(mainPanel, "Game");
         gameLoop();
@@ -186,19 +165,7 @@ Timer timer;
     }
 
     public static void main(String[] args) {
-        try {
-            for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
         SnakeGame game = new SnakeGame();
-        Food.setGame(game);
 
         game.setTitle("Snake Game");
         game.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -207,6 +174,4 @@ Timer timer;
         game.setVisible(true);
         game.setFocusable(true);
     }
-
-
 }

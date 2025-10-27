@@ -24,19 +24,7 @@ public class Snake {
         body.add(new Point(startX, startY)); // initial head
     }
 
-    public void move(Direction dir, boolean ateFood, GameBoard board) {
-        if (prevBody.size() != body.size()) {
-            prevBody = new LinkedList<>();
-            for (Point p : body) prevBody.add(new Point(p.x, p.y));
-        } else {
-            for (int i = 0; i < body.size(); i++) {
-                Point p = body.get(i);
-                Point q = prevBody.get(i);
-                q.x = p.x;
-                q.y = p.y;
-            }
-        }
-
+    public void move(Direction dir, boolean ateFood, LinkedList<Point> body, GameBoard board) {
         Point head = body.getFirst();
         Point newHead = new Point(head);
 
@@ -62,6 +50,7 @@ public class Snake {
         Point head = body.getFirst();
         // checks wall-collision
         if (head.x < 0 || head.x >= boardWidth || head.y >= boardHeight || head.y < 0) {
+            System.out.println("Wall collision detected at: " + head);
             return true;
         }
         // checks self-collision
@@ -93,11 +82,5 @@ public class Snake {
         int lastY = body.getLast().y;
 
         board.grid[lastY][lastX] = 0;
-    }
-
-    private LinkedList<Point> prevBody = new  LinkedList<>();
-
-    public LinkedList<Point> getPrevBody() {
-        return prevBody;
     }
 }
